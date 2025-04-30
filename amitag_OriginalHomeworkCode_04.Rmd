@@ -1,0 +1,62 @@
+---
+head(data)
+str(data)title: "amitag_OriginalHomeworkCode_04"
+output: html_document
+date: "2025-04-30"
+---
+
+
+data <- read.csv("https://raw.githubusercontent.com/fuzzyatelin/bioanth-stats/main/data/kamilar-cooper-data.csv")
+head(data)
+str(data)
+# I inspected the data
+model <- lm(log(HomeRange_km2) ~ log(Body_mass_female_mean), data = data)
+summary(model)
+# next I performed the linear regression
+Challenge 2 - Then, use bootstrapping to sample from your data 1000 times with replacement, each time fitting the same model and calculating the same coefficients. This generates a sampling distribution for each 𝛽
+#Challenge 2 - Then, use bootstrapping to sample from your data 1000 times with replacement, each time fitting the same model and calculating the same coefficients. This generates a sampling distribution for each 𝛽
+set.seed(32) # for reproducibility
+# Create empty vectors to store bootstrapped coefficients
+boot_intercepts <- numeric(1000)
+boot_slopes <- numeric(1000)
+for (i in 1:1000) {
+sample_data <- data[sample(1:nrow(data), replace = TRUE), ]
+model <- lm(log(HomeRange_km2) ~ log(Body_mass_female_mean), data = sample_data)
+boot_intercepts[i] <- coef(model)[1] # intercept
+boot_slopes[i] <- coef(model)[2] # slope
+}
+# the mean and 95% confidence intervals of the coefficients
+# Mean estimates
+mean(boot_intercepts)
+mean(boot_slopes)
+# 95% confidence intervals
+quantile(boot_intercepts, c(0.025, 0.975))
+quantile(boot_slopes, c(0.025, 0.975))
+#2a
+se_intercept <- sd(boot_intercepts)
+# Standard error of slope (β₁)
+se_slope <- sd(boot_slopes)
+se_intercept
+se_slope
+ci_intercept <- quantile(boot_intercepts, c(0.025, 0.975))
+# 95% CI for slope (β₁)
+ci_slope <- quantile(boot_slopes, c(0.025, 0.975))
+ci_intercept
+ci_slope
+#2b
+# The SEs from both the bootstrap and linear model are very similar which suggests the model’s standard errors are reliable for this data.
+# 2c
+# 95% CIs from both the bootstrap and linear model should be pretty close if the model assumptions are good. If they’re different, the bootstrap might be a more reliable method.
+boot_slopes <- numeric(1000)
+se_intercept
+ci_slope <- quantile(boot_slopes, c(0.025, 0.975))
+#2b
+# The 95% CIs from both the bootstrap and linear model should be pretty close if the model assumptions are good. If they’re different, the bootstrap might be more reliable.
+# Challenges: Getting the hang of bootstrapping in R was a bit tricky.
+#It took some time to fully understand how to interpret the regression results.
+#The dataset had some formatting issues I had to fix before I could analyze it.
+#Comparing the bootstrap SEs to the model SEs was a little confusing at first.
+
+# I had to double-check the 95% CIs to make sure everything lined up properly.
+
+
