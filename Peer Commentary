@@ -1,0 +1,20 @@
+1. What I learned from running their Original Homework Code that helped improve my own code:
+Running your code reminded me how helpful it can be to manually structure bootstrap simulations using a simple for loop. 
+While I used replicate() in my own code for compactness, seeing each coefficient stored iteratively made the process more transparent, especially for debugging purposes. 
+Your use of clearly named vectors for intercepts and slopes also made the output easier to parse than relying on matrix indexing.
+
+2. What I did in my own code that might help to improve theirs:
+In my version, I encapsulated the bootstrapping logic into a general-purpose function that accepts a data frame, model formula, confidence level, and number of bootstraps. 
+This modular approach makes it easier to reuse the bootstrapping logic for different datasets and models — and could help simplify your script, especially if they attempt the extra credit. 
+Additionally, I included a visualization of how bootstrap CI estimates stabilize as the number of bootstraps increases, which helped me better interpret the reliability of the estimates. 
+Adding that kind of graph could further strengthen your discussion of the results.
+
+3. What challenges, if any, we both faced in our code that could not be helped by comparison:
+I faced similar difficulties interpreting how close the bootstrap CIs should be to those reported by lm() — and what it means when they differ. 
+Conceptually, this required digging into the assumptions of both methods, especially understanding how non-normality or small sample sizes could cause discrepancies. 
+Also, formatting the output to cleanly compare model-based vs. bootstrap-based estimates was trickier than I expected — aligning CI outputs from different sources took some care.
+
+4. Whether the annotation/commenting on your peer’s Original Homework Code is readable and interpretable to you, and if not then how it could be improved:
+The code is quite readable, and I appreciated the straightforward style of the annotations. 
+However, I noticed a few points that could be improved: the boot_slopes vector is redefined unnecessarily toward the end, and there’s some duplicated text around the challenge description. 
+Cleaning up redundant comments and organizing the code into logical sections (e.g., “Setup,” “Bootstrapping,” “Comparisons”) would improve readability. A final comment summarizing the comparison results would also help tie things together.
